@@ -18,14 +18,12 @@ public class Tower {
     private int name;
     private final int d = 30; // Diametro del circulo que representa las torres
     ArrayList<Edge> edges;
-    ArrayList<Edge> adjacency;
 
     public Tower(int x, int y, int name) {
         this.x = x;
         this.y = y;
         this.name = name;
         this.edges = new ArrayList();
-        this.adjacency = new ArrayList();
     }
 
     public int getX() {
@@ -72,13 +70,9 @@ public class Tower {
         return edges.get(i);
         
     }
-    
-    public int getAdjacency_Count(){
-        int count = 0;
-        for(Edge edge: edges){
-            count++;
-        }
-        return count;
+
+    public ArrayList<Edge> getEdges() {
+        return edges;
     }
 
 }

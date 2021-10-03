@@ -15,12 +15,11 @@ public class City {
 
     ArrayList<Tower> towers;
     ArrayList<Edge> edges;
-    ArrayList<Edge> adjacency;
+    int adjacencyMatrix[][];
 
     public City() {
         towers = new ArrayList();
         edges = new ArrayList();
-        adjacency = new ArrayList();
     }
 
     public ArrayList<Tower> getTowers() {
@@ -84,55 +83,45 @@ public class City {
         for (Edge edge : edges) {
             System.out.println(edge.getOrigin().getName() + "--" + edge.getDestination().getName() + "||" + edge.getDistance());
         }
+        System.out.println("Matriz de adyacencia");
+        adjacencyMatrix = generateAdjacencyMatrix();
+        for (int i = 0; i < adjacencyMatrix.length; i++) {
+            for (int j = 0; j < adjacencyMatrix.length; j++) {
+                System.out.print(adjacencyMatrix[i][j] + " ");
+            }
+            System.out.println("");
+        }
     }
 
-    void adjacency_matrix() {
-
-        int count = 0;
-        int count_tower = 0;
-        int count_tower1 = 0;
-
-        System.out.println("Adjacency matrix: ");
-        for (Tower tower : towers) {
-            count++;
-
-        }
-        System.out.println("i:" + count + " j:" + count);
-
-        int[][] adjacency_matrix = new int[count][count];
-
-        for (Tower tower : towers) {
-
-            for (int i = 0; i < tower.getAdjacency_Count(); i++) {
-                adjacency.add(tower.getEdge(i));
-
+    public int[][] generateAdjacencyMatrix() {
+        int M[][] = new int[towers.size()][towers.size()];
+        for (int i = 0; i < towers.size(); i++) {
+            for (int j = 0; j < towers.size(); j++) {
+                M[i][j] = 0;
             }
-            for (Tower tower1 : towers) {
-
-                if (tower.getName() == tower1.getName()) {
-
-                    adjacency_matrix[count_tower][count_tower1] = 0;
-
-                } else {
-                    for (Edge e : adjacency) {
-
-                        if (tower1.getName() == e.getDestination().getName()) {
-
-                            adjacency_matrix[count_tower][count_tower1] = e.getDistance(); // 1 - e.getDestination().getName()
-                        }
-                    }
-                }
-
-                count_tower1++;
-            }
-
-            count_tower++;
-
-            count_tower1 = 0;
         }
+        int Names[] = new int[towers.size()];
+        int i = 0;
+        for (Tower tower : towers) {
+            Names[i++] = tower.getName();
+        }
+        i = 0;
+        for (Tower tower : towers) {
+            for (Edge edge : tower.getEdges()) {
+                M[i][FindName(edge.getDestination().getName(), Names)] = edge.getDistance();
+            }
+            i++;
+        }
+        return M;
+    }
 
-        // imprimir matriz
-        escribirMatriz(adjacency_matrix, count);
+    private int FindName(int name, int[] Names) {
+        for (int i = 0; i < Names.length; i++) {
+            if (Names[i] == name) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     public static void escribirMatriz(int matrix[][], int n) {
@@ -143,7 +132,6 @@ public class City {
             System.out.println("");
         }
     }
-    
-    
+
     // Prim Algorythm 
 }
