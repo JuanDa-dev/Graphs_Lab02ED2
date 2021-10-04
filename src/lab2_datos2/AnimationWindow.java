@@ -5,6 +5,8 @@
  */
 package lab2_datos2;
 
+import java.util.LinkedList;
+import java.util.Queue;
 import javax.swing.JOptionPane;
 
 /**
@@ -18,9 +20,11 @@ public class AnimationWindow extends javax.swing.JFrame {
      */
     Animation animation;
     City city;
+    public static String resultado;
 
     public AnimationWindow() {
         initComponents();
+        resultado = "";
         city = new City();
         animation = new Animation(city);
         animation.setBounds(0, 0, this.getWidth() - 300, this.getHeight());
@@ -37,15 +41,18 @@ public class AnimationWindow extends javax.swing.JFrame {
     private void initComponents() {
 
         addEdgeDialog = new javax.swing.JDialog(this, true);
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jButton3 = new javax.swing.JButton();
+        weightTxt = new javax.swing.JTextField();
+        addbtn = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        originComboBox = new javax.swing.JComboBox<>();
+        destinyComboBox = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
+        traversalsDialog = new javax.swing.JDialog(this, true);
+        initialTowerComboBox = new javax.swing.JComboBox<>();
+        BFSbtn = new javax.swing.JButton();
+        DFSbtn = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         addEdge = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -54,27 +61,29 @@ public class AnimationWindow extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         showDetails = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
+        traversalsbtn = new javax.swing.JButton();
 
         addEdgeDialog.setResizable(false);
         addEdgeDialog.setSize(new java.awt.Dimension(400, 300));
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+        weightTxt.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                weightTxtKeyTyped(evt);
             }
         });
 
-        jButton3.setText("Añadir");
+        addbtn.setText("Add");
+        addbtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addbtnActionPerformed(evt);
+            }
+        });
 
-        jLabel2.setText("Nodo origen");
+        jLabel2.setText("Origin");
 
-        jLabel3.setText("Nodo destino");
+        jLabel3.setText("Destiny");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "7", "5", "13" }));
-
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "7", "5", "13" }));
-
-        jLabel4.setText("Peso");
+        jLabel4.setText("Weight");
 
         javax.swing.GroupLayout addEdgeDialogLayout = new javax.swing.GroupLayout(addEdgeDialog.getContentPane());
         addEdgeDialog.getContentPane().setLayout(addEdgeDialogLayout);
@@ -83,53 +92,93 @@ public class AnimationWindow extends javax.swing.JFrame {
             .addGroup(addEdgeDialogLayout.createSequentialGroup()
                 .addGap(45, 45, 45)
                 .addGroup(addEdgeDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(addEdgeDialogLayout.createSequentialGroup()
-                        .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(addEdgeDialogLayout.createSequentialGroup()
-                        .addGroup(addEdgeDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(addEdgeDialogLayout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(addEdgeDialogLayout.createSequentialGroup()
-                                .addGroup(addEdgeDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(86, 86, 86)
-                                .addGroup(addEdgeDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(addEdgeDialogLayout.createSequentialGroup()
-                                        .addComponent(jLabel4)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 126, Short.MAX_VALUE)
-                                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(addEdgeDialogLayout.createSequentialGroup()
-                                        .addGroup(addEdgeDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jButton3)
-                                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(0, 0, Short.MAX_VALUE)))))
-                        .addContainerGap())))
+                    .addComponent(jLabel2)
+                    .addGroup(addEdgeDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(addEdgeDialogLayout.createSequentialGroup()
+                            .addComponent(destinyComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(addbtn))
+                        .addGroup(addEdgeDialogLayout.createSequentialGroup()
+                            .addGroup(addEdgeDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel3)
+                                .addComponent(originComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(86, 86, 86)
+                            .addGroup(addEdgeDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(weightTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel4)))))
+                .addContainerGap(178, Short.MAX_VALUE))
         );
         addEdgeDialogLayout.setVerticalGroup(
             addEdgeDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(addEdgeDialogLayout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addGroup(addEdgeDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30)
+                .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(addEdgeDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(17, 17, 17)
-                .addGroup(addEdgeDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
+                .addGroup(addEdgeDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(addEdgeDialogLayout.createSequentialGroup()
+                        .addComponent(originComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(23, 23, 23)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(destinyComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(addEdgeDialogLayout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(weightTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(addbtn)))
+                .addContainerGap(167, Short.MAX_VALUE))
+        );
+
+        traversalsDialog.setResizable(false);
+        traversalsDialog.setSize(new java.awt.Dimension(400, 300));
+
+        BFSbtn.setText("BFS");
+        BFSbtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BFSbtnActionPerformed(evt);
+            }
+        });
+
+        DFSbtn.setText("DFS");
+        DFSbtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DFSbtnActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setText("Choose an initial tower");
+
+        javax.swing.GroupLayout traversalsDialogLayout = new javax.swing.GroupLayout(traversalsDialog.getContentPane());
+        traversalsDialog.getContentPane().setLayout(traversalsDialogLayout);
+        traversalsDialogLayout.setHorizontalGroup(
+            traversalsDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(traversalsDialogLayout.createSequentialGroup()
+                .addGroup(traversalsDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(traversalsDialogLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(traversalsDialogLayout.createSequentialGroup()
+                        .addGap(46, 46, 46)
+                        .addComponent(initialTowerComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(138, 138, 138)
+                        .addGroup(traversalsDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(DFSbtn)
+                            .addComponent(BFSbtn))))
+                .addContainerGap(137, Short.MAX_VALUE))
+        );
+        traversalsDialogLayout.setVerticalGroup(
+            traversalsDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(traversalsDialogLayout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton3)
-                .addContainerGap(135, Short.MAX_VALUE))
+                .addGroup(traversalsDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(initialTowerComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BFSbtn))
+                .addGap(26, 26, 26)
+                .addComponent(DFSbtn)
+                .addContainerGap(178, Short.MAX_VALUE))
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -156,7 +205,7 @@ public class AnimationWindow extends javax.swing.JFrame {
 
         jButton2.setBackground(new java.awt.Color(255, 255, 255));
         jButton2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton2.setText("prueba");
+        jButton2.setText("MST");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -184,26 +233,33 @@ public class AnimationWindow extends javax.swing.JFrame {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("GeoGraphs");
 
+        traversalsbtn.setBackground(new java.awt.Color(255, 255, 255));
+        traversalsbtn.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        traversalsbtn.setText("Traversals");
+        traversalsbtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                traversalsbtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(addEdge, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(titleShowDetails)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 30, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 86, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(41, 41, 41)
-                .addComponent(jLabel1)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(addEdge, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(titleShowDetails)
+                        .addComponent(traversalsbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -211,13 +267,15 @@ public class AnimationWindow extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(26, 26, 26)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(54, 54, 54)
+                .addGap(18, 18, 18)
                 .addComponent(addEdge, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(44, 44, 44)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
+                .addComponent(traversalsbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
                 .addComponent(titleShowDetails)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -231,21 +289,64 @@ public class AnimationWindow extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    public void DFS(int u, int[][] M, boolean[] visited) {
+        resultado += city.getiTower(u) + " ";
+        visited[u] = true;
+        for (int v = 0; v < M.length; v++) {
+            if (M[u][v] != 0) {
+                if (!visited[v]) {
+                    DFS(v, M, visited);
+                }
+            }
+        }
+    }
+
+    // Primero en anchura
+    public void BFS(int i, int[][] M, boolean[] visited) {
+        Queue<Integer> cola = new LinkedList<Integer>();
+        visited[i] = true;
+        cola.add(i);
+        int temp;
+        while (!cola.isEmpty()) {
+            temp = cola.remove();
+            resultado += city.getiTower(temp) + " ";
+
+            for (int v = 0; v < M.length; v++) {
+                if (M[temp][v] != 0) {
+                    if (!visited[v]) {
+                        visited[v] = true;
+                        cola.add(v);
+                    }
+
+                }
+            }
+        }
+    }
+
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
         // TODO add your handling code here:
         if (evt.getButton() == 1) {
             if (evt.getX() < animation.getWidth() - 20 && evt.getY() < animation.getHeight() - 30) {
                 if (city.getTowers().size() < 100) {
                     if (city.checkSpace(evt.getX() - 15, evt.getY() - 30) == null) {
-                        int name = Integer.parseInt(JOptionPane.showInputDialog("Digite el numero de la torre"));
-                        if (city.getTowers().size() == 0) {
-                            city.addTower(new Tower(evt.getX() - 15, evt.getY() - 30, name));
-                        } else {
-                            if (city.getTower(name) == null) {
-                                city.addTower(new Tower(evt.getX() - 15, evt.getY() - 30, name));
+                        String s = JOptionPane.showInputDialog("Digite el numero de la torre");
+                        if (s != null && !s.equals("")) {
+                            if (isNumber(s)) {
+                                int name = Integer.parseInt(s);
+                                if (city.getTowers().size() == 0) {
+                                    city.addTower(new Tower(evt.getX() - 15, evt.getY() - 30, name));
+                                } else {
+                                    if (city.getTower(name) == null) {
+                                        city.addTower(new Tower(evt.getX() - 15, evt.getY() - 30, name));
+                                    } else {
+                                        JOptionPane.showMessageDialog(null, "Ya existe esa torre");
+                                    }
+                                }
                             } else {
-                                JOptionPane.showMessageDialog(null, "Ya existe esa torre");
+                                JOptionPane.showMessageDialog(null, "Debe digitar correctamente el número de la torre");
                             }
+                        } else {
+                            JOptionPane.showMessageDialog(null, "No se agregó la torre");
                         }
                     } else {
                         JOptionPane.showMessageDialog(null, "Espacio incorrecto");
@@ -256,27 +357,36 @@ public class AnimationWindow extends javax.swing.JFrame {
             }
         } else if (evt.getButton() == 3) {
             Tower t = city.checkSpace(evt.getX() - 15, evt.getY() - 30);
-            if(t!= null){
+            if (t != null) {
                 city.deleteTower(t);
-            }else{
+            } else {
                 JOptionPane.showMessageDialog(null, "Seleccione una torre a eliminar");
             }
         }
     }//GEN-LAST:event_formMouseClicked
 
+    private static boolean isNumber(String n) {
+        try {
+            Integer.parseInt(n);
+            return true;
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+    }
+
     private void addEdgeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addEdgeActionPerformed
         // TODO add your handling code here:
-        int a = Integer.parseInt(JOptionPane.showInputDialog("Digite el nodo origen"));
-        int b = Integer.parseInt(JOptionPane.showInputDialog("Digite el nodo destino"));
-        if (a != b) {
-            if (city.getTower(a) != null && city.getTower(b) != null) {
-                int peso = Integer.parseInt(JOptionPane.showInputDialog("Digite peso de la arista"));
-                city.addEdge(new Edge(city.getTower(a), city.getTower(b), peso));
-            } else {
-                JOptionPane.showMessageDialog(null, "Verifique los datos para crear la arista");
+        if (city.getTowers().size() >= 2) {
+            addEdgeDialog.setLocation(this.getX() + this.getWidth() - 400, this.getY() + this.getHeight() / 4);
+            originComboBox.removeAllItems();
+            destinyComboBox.removeAllItems();
+            for (Tower tower : city.getTowers()) {
+                originComboBox.addItem(tower.getName() + "");
+                destinyComboBox.addItem(tower.getName() + "");
             }
+            addEdgeDialog.setVisible(true);
         } else {
-            JOptionPane.showMessageDialog(null, "No se permiten bucles");
+            JOptionPane.showMessageDialog(null, "Deben haber por lo menos 2 torres");
         }
     }//GEN-LAST:event_addEdgeActionPerformed
 
@@ -286,13 +396,91 @@ public class AnimationWindow extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        addEdgeDialog.setLocation(this.getX()+this.getWidth()-400, this.getY()+this.getHeight()/4);
-        addEdgeDialog.setVisible(true);
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void traversalsbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_traversalsbtnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+        if (city.getTowers().size() >= 1) {
+            traversalsDialog.setLocation(this.getX() + this.getWidth() - 400, this.getY() + this.getHeight() / 4);
+            initialTowerComboBox.removeAllItems();
+            for (Tower tower : city.getTowers()) {
+                initialTowerComboBox.addItem(tower.getName() + "");
+            }
+            traversalsDialog.setVisible(true);
+        }else{
+            JOptionPane.showMessageDialog(null, "Deben haber torres");
+        }
+    }//GEN-LAST:event_traversalsbtnActionPerformed
+
+    private void BFSbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BFSbtnActionPerformed
+        // TODO add your handling code here:
+        traversalsDialog.setVisible(false);
+        int[][] M = city.getAdjacencyMatrix();
+        boolean V[] = new boolean[M.length];
+        for (int i = 0; i < M.length; i++) {
+            V[i] = false;
+        }
+        int i = city.getPosition(Integer.parseInt(initialTowerComboBox.getSelectedItem() + ""));
+        resultado = "";
+        BFS(i, M, V);
+        showDetails.append("\nBFS: " + resultado);
+    }//GEN-LAST:event_BFSbtnActionPerformed
+
+    private void DFSbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DFSbtnActionPerformed
+        // TODO add your handling code here:
+        traversalsDialog.setVisible(false);
+        int[][] M = city.getAdjacencyMatrix();
+        boolean V[] = new boolean[M.length];
+        for (int i = 0; i < M.length; i++) {
+            V[i] = false;
+        }
+        int i = city.getPosition(Integer.parseInt(initialTowerComboBox.getSelectedItem() + ""));
+        resultado = "";
+        DFS(i, M, V);
+        showDetails.append("\nDFS: " + resultado);
+    }//GEN-LAST:event_DFSbtnActionPerformed
+
+    private void weightTxtKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_weightTxtKeyTyped
+        // TODO add your handling code here:
+        char c = evt.getKeyChar();
+        if (!Character.isDigit(c)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_weightTxtKeyTyped
+
+    private void addbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addbtnActionPerformed
+        // TODO add your handling code here:
+        //        int a = Integer.parseInt(JOptionPane.showInputDialog("Digite el nodo origen"));
+//        int b = Integer.parseInt(JOptionPane.showInputDialog("Digite el nodo destino"));
+//        if (a != b) {
+//            if (city.getTower(a) != null && city.getTower(b) != null) {
+//                int peso = Integer.parseInt(JOptionPane.showInputDialog("Digite peso de la arista"));
+//                city.addEdge(new Edge(city.getTower(a), city.getTower(b), peso));
+//            } else {
+//                JOptionPane.showMessageDialog(null, "Verifique los datos para crear la arista");
+//            }
+//        } else {
+//            JOptionPane.showMessageDialog(null, "No se permiten bucles");
+//        }
+        int a = Integer.parseInt(originComboBox.getSelectedItem() + "");
+        int b = Integer.parseInt(destinyComboBox.getSelectedItem() + "");
+        if (a != b) {
+            if (!weightTxt.getText().equals("")) {
+                int peso = Integer.parseInt(weightTxt.getText());
+                if (peso != 0) {
+                    city.addEdge(new Edge(city.getTower(a), city.getTower(b), peso));
+                    weightTxt.setText("");
+                } else {
+                    JOptionPane.showMessageDialog(null, "El peso debe ser mayor a 0");
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Debe digitar el peso de la arista");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "No se permiten bucles");
+        }
+    }//GEN-LAST:event_addbtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -330,23 +518,27 @@ public class AnimationWindow extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BFSbtn;
+    private javax.swing.JButton DFSbtn;
     private javax.swing.JButton addEdge;
     private javax.swing.JDialog addEdgeDialog;
+    private javax.swing.JButton addbtn;
+    private javax.swing.JComboBox<String> destinyComboBox;
+    private javax.swing.JComboBox<String> initialTowerComboBox;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JComboBox<String> originComboBox;
     private javax.swing.JTextArea showDetails;
     private javax.swing.JLabel titleShowDetails;
+    private javax.swing.JDialog traversalsDialog;
+    private javax.swing.JButton traversalsbtn;
+    private javax.swing.JTextField weightTxt;
     // End of variables declaration//GEN-END:variables
 }
