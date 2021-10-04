@@ -46,8 +46,8 @@ public class City {
     public ArrayList<Edge> getEdges() {
         return edges;
     }
-    
-    public int[][] getAdjacencyMatrix(){
+
+    public int[][] getAdjacencyMatrix() {
         this.adjacencyMatrix = generateAdjacencyMatrix();
         return adjacencyMatrix;
     }
@@ -139,15 +139,14 @@ public class City {
     }
 
     // Prim Algorythm 
-
     int getiTower(int i) {
-       return towers.get(i).getName();
+        return towers.get(i).getName();
     }
 
     int getPosition(int t) {
         int i = 0;
         for (Tower tower : towers) {
-            if(tower.getName()==t){
+            if (tower.getName() == t) {
                 return i;
             }
             i++;

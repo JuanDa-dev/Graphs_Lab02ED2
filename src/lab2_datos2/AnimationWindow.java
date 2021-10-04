@@ -53,9 +53,13 @@ public class AnimationWindow extends javax.swing.JFrame {
         BFSbtn = new javax.swing.JButton();
         DFSbtn = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
+        mstDialog = new javax.swing.JDialog(this, true);
+        originmstComboBox = new javax.swing.JComboBox<>();
+        showmstbtn = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         addEdge = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        mstbtn = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         titleShowDetails = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -133,6 +137,12 @@ public class AnimationWindow extends javax.swing.JFrame {
         traversalsDialog.setResizable(false);
         traversalsDialog.setSize(new java.awt.Dimension(400, 300));
 
+        initialTowerComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                initialTowerComboBoxActionPerformed(evt);
+            }
+        });
+
         BFSbtn.setText("BFS");
         BFSbtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -181,6 +191,44 @@ public class AnimationWindow extends javax.swing.JFrame {
                 .addContainerGap(178, Short.MAX_VALUE))
         );
 
+        mstDialog.setResizable(false);
+        mstDialog.setSize(new java.awt.Dimension(400, 300));
+
+        showmstbtn.setText("MST");
+        showmstbtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                showmstbtnActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setText("Initial");
+
+        javax.swing.GroupLayout mstDialogLayout = new javax.swing.GroupLayout(mstDialog.getContentPane());
+        mstDialog.getContentPane().setLayout(mstDialogLayout);
+        mstDialogLayout.setHorizontalGroup(
+            mstDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(mstDialogLayout.createSequentialGroup()
+                .addGap(33, 33, 33)
+                .addGroup(mstDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel6)
+                    .addGroup(mstDialogLayout.createSequentialGroup()
+                        .addComponent(originmstComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(111, 111, 111)
+                        .addComponent(showmstbtn)))
+                .addContainerGap(175, Short.MAX_VALUE))
+        );
+        mstDialogLayout.setVerticalGroup(
+            mstDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(mstDialogLayout.createSequentialGroup()
+                .addGap(35, 35, 35)
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(mstDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(originmstComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(showmstbtn))
+                .addContainerGap(217, Short.MAX_VALUE))
+        );
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(21, 61, 121));
         setPreferredSize(new java.awt.Dimension(1280, 720));
@@ -203,12 +251,12 @@ public class AnimationWindow extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setBackground(new java.awt.Color(255, 255, 255));
-        jButton2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jButton2.setText("MST");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        mstbtn.setBackground(new java.awt.Color(255, 255, 255));
+        mstbtn.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        mstbtn.setText("MST");
+        mstbtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                mstbtnActionPerformed(evt);
             }
         });
 
@@ -249,18 +297,18 @@ public class AnimationWindow extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 86, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(41, 41, 41)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(mstbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(addEdge, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                         .addComponent(titleShowDetails)
                         .addComponent(traversalsbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(55, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -272,7 +320,7 @@ public class AnimationWindow extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(mstbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(traversalsbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
@@ -324,7 +372,7 @@ public class AnimationWindow extends javax.swing.JFrame {
     }
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
-        // TODO add your handling code here:
+        // TODO add your handling code here:        
         if (evt.getButton() == 1) {
             if (evt.getX() < animation.getWidth() - 20 && evt.getY() < animation.getHeight() - 30) {
                 if (city.getTowers().size() < 100) {
@@ -335,9 +383,11 @@ public class AnimationWindow extends javax.swing.JFrame {
                                 int name = Integer.parseInt(s);
                                 if (city.getTowers().size() == 0) {
                                     city.addTower(new Tower(evt.getX() - 15, evt.getY() - 30, name));
+                                    this.animation.setMst(false);
                                 } else {
                                     if (city.getTower(name) == null) {
                                         city.addTower(new Tower(evt.getX() - 15, evt.getY() - 30, name));
+                                        this.animation.setMst(false);
                                     } else {
                                         JOptionPane.showMessageDialog(null, "Ya existe esa torre");
                                     }
@@ -359,6 +409,7 @@ public class AnimationWindow extends javax.swing.JFrame {
             Tower t = city.checkSpace(evt.getX() - 15, evt.getY() - 30);
             if (t != null) {
                 city.deleteTower(t);
+                this.animation.setMst(false);
             } else {
                 JOptionPane.showMessageDialog(null, "Seleccione una torre a eliminar");
             }
@@ -395,21 +446,46 @@ public class AnimationWindow extends javax.swing.JFrame {
         city.writeEverything();
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void mstbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mstbtnActionPerformed
+        mstDialog.setLocation(this.getX() + this.getWidth() - 400, this.getY() + this.getHeight() / 4);
+        originmstComboBox.removeAllItems();
+        for (Tower tower : city.getTowers()) {
+            originmstComboBox.addItem(tower.getName() + "");
+        }
+        mstDialog.setVisible(true);
 
-    }//GEN-LAST:event_jButton2ActionPerformed
+
+    }//GEN-LAST:event_mstbtnActionPerformed
 
     private void traversalsbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_traversalsbtnActionPerformed
         // TODO add your handling code here:
-        if (city.getTowers().size() >= 1) {
-            traversalsDialog.setLocation(this.getX() + this.getWidth() - 400, this.getY() + this.getHeight() / 4);
-            initialTowerComboBox.removeAllItems();
-            for (Tower tower : city.getTowers()) {
-                initialTowerComboBox.addItem(tower.getName() + "");
+        if (!this.animation.isMst()) {
+            if (city.getTowers().size() >= 1) {
+                traversalsDialog.setLocation(this.getX() + this.getWidth() - 400, this.getY() + this.getHeight() / 4);
+                initialTowerComboBox.removeAllItems();
+                for (Tower tower : city.getTowers()) {
+                    initialTowerComboBox.addItem(tower.getName() + "");
+                }
+                traversalsDialog.setVisible(true);
+            } else {
+                JOptionPane.showMessageDialog(null, "Deben haber torres");
             }
-            traversalsDialog.setVisible(true);
-        }else{
-            JOptionPane.showMessageDialog(null, "Deben haber torres");
+        } else {
+            if (JOptionPane.showConfirmDialog(null, "Se dibjujará el grafo original",
+                    "OK_CANCEL_OPTION", JOptionPane.OK_CANCEL_OPTION,
+                    JOptionPane.INFORMATION_MESSAGE) == 0) {
+                if (city.getTowers().size() >= 1) {
+                    traversalsDialog.setLocation(this.getX() + this.getWidth() - 400, this.getY() + this.getHeight() / 4);
+                    initialTowerComboBox.removeAllItems();
+                    for (Tower tower : city.getTowers()) {
+                        initialTowerComboBox.addItem(tower.getName() + "");
+                    }
+                    this.animation.setMst(false);
+                    traversalsDialog.setVisible(true);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Deben haber torres");
+                }
+            }
         }
     }//GEN-LAST:event_traversalsbtnActionPerformed
 
@@ -482,6 +558,19 @@ public class AnimationWindow extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_addbtnActionPerformed
 
+    private void initialTowerComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_initialTowerComboBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_initialTowerComboBoxActionPerformed
+
+    private void showmstbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showmstbtnActionPerformed
+        // TODO add your handling code here:
+        MST mst = new MST(city, city.getPosition(Integer.parseInt(originmstComboBox.getSelectedItem() + "")));
+        mst.Algorithm_Prim();
+        this.animation.setMstEdges(mst.getMstEdges());
+        this.animation.setMst(true);
+        mstDialog.setVisible(false);
+    }//GEN-LAST:event_showmstbtnActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -526,16 +615,20 @@ public class AnimationWindow extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> destinyComboBox;
     private javax.swing.JComboBox<String> initialTowerComboBox;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JDialog mstDialog;
+    private javax.swing.JButton mstbtn;
     private javax.swing.JComboBox<String> originComboBox;
+    private javax.swing.JComboBox<String> originmstComboBox;
     private javax.swing.JTextArea showDetails;
+    private javax.swing.JButton showmstbtn;
     private javax.swing.JLabel titleShowDetails;
     private javax.swing.JDialog traversalsDialog;
     private javax.swing.JButton traversalsbtn;
