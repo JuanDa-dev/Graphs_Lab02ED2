@@ -1,18 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package lab2_datos2;
 
 import java.util.LinkedList;
 import java.util.Queue;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author Mateo
- */
 public class AnimationWindow extends javax.swing.JFrame {
 
     /**
@@ -41,21 +32,24 @@ public class AnimationWindow extends javax.swing.JFrame {
     private void initComponents() {
 
         addEdgeDialog = new javax.swing.JDialog(this, true);
-        weightTxt = new javax.swing.JTextField();
-        addbtn = new javax.swing.JButton();
+        parentContent = new javax.swing.JPanel();
+        originComboBox = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        originComboBox = new javax.swing.JComboBox<>();
         destinyComboBox = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
+        weightTxt = new javax.swing.JTextField();
+        addbtn = new javax.swing.JButton();
         traversalsDialog = new javax.swing.JDialog(this, true);
+        mainContent = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
         initialTowerComboBox = new javax.swing.JComboBox<>();
         BFSbtn = new javax.swing.JButton();
         DFSbtn = new javax.swing.JButton();
-        jLabel5 = new javax.swing.JLabel();
         mstDialog = new javax.swing.JDialog(this, true);
-        originmstComboBox = new javax.swing.JComboBox<>();
+        jPanel2 = new javax.swing.JPanel();
         showmstbtn = new javax.swing.JButton();
+        originmstComboBox = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         addEdge = new javax.swing.JButton();
@@ -67,8 +61,30 @@ public class AnimationWindow extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         traversalsbtn = new javax.swing.JButton();
 
+        addEdgeDialog.setBackground(new java.awt.Color(21, 61, 121));
         addEdgeDialog.setResizable(false);
         addEdgeDialog.setSize(new java.awt.Dimension(400, 300));
+
+        parentContent.setBackground(new java.awt.Color(21, 61, 121));
+        parentContent.setPreferredSize(new java.awt.Dimension(400, 328));
+
+        originComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                originComboBoxActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("Origin Vertex");
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setText("Destiny Vertex");
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setText("Edge Weight");
 
         weightTxt.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -76,66 +92,82 @@ public class AnimationWindow extends javax.swing.JFrame {
             }
         });
 
-        addbtn.setText("Add");
+        addbtn.setBackground(new java.awt.Color(255, 255, 255));
+        addbtn.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        addbtn.setText("Add Edge");
         addbtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addbtnActionPerformed(evt);
             }
         });
 
-        jLabel2.setText("Origin");
-
-        jLabel3.setText("Destiny");
-
-        jLabel4.setText("Weight");
+        javax.swing.GroupLayout parentContentLayout = new javax.swing.GroupLayout(parentContent);
+        parentContent.setLayout(parentContentLayout);
+        parentContentLayout.setHorizontalGroup(
+            parentContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(parentContentLayout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 72, Short.MAX_VALUE)
+                .addComponent(jLabel3)
+                .addGap(54, 54, 54))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, parentContentLayout.createSequentialGroup()
+                .addGap(50, 50, 50)
+                .addComponent(originComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(destinyComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(95, 95, 95))
+            .addGroup(parentContentLayout.createSequentialGroup()
+                .addGroup(parentContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(parentContentLayout.createSequentialGroup()
+                        .addGap(119, 119, 119)
+                        .addGroup(parentContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addComponent(addbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(parentContentLayout.createSequentialGroup()
+                        .addGap(147, 147, 147)
+                        .addComponent(weightTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        parentContentLayout.setVerticalGroup(
+            parentContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(parentContentLayout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addGroup(parentContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(parentContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(originComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(destinyComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(weightTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
+                .addComponent(addbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(93, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout addEdgeDialogLayout = new javax.swing.GroupLayout(addEdgeDialog.getContentPane());
         addEdgeDialog.getContentPane().setLayout(addEdgeDialogLayout);
         addEdgeDialogLayout.setHorizontalGroup(
             addEdgeDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(addEdgeDialogLayout.createSequentialGroup()
-                .addGap(45, 45, 45)
-                .addGroup(addEdgeDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addGroup(addEdgeDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(addEdgeDialogLayout.createSequentialGroup()
-                            .addComponent(destinyComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(addbtn))
-                        .addGroup(addEdgeDialogLayout.createSequentialGroup()
-                            .addGroup(addEdgeDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel3)
-                                .addComponent(originComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGap(86, 86, 86)
-                            .addGroup(addEdgeDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(weightTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel4)))))
-                .addContainerGap(178, Short.MAX_VALUE))
+            .addComponent(parentContent, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         addEdgeDialogLayout.setVerticalGroup(
             addEdgeDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(addEdgeDialogLayout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(addEdgeDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(addEdgeDialogLayout.createSequentialGroup()
-                        .addComponent(originComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(23, 23, 23)
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(destinyComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(addEdgeDialogLayout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(weightTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(addbtn)))
-                .addContainerGap(167, Short.MAX_VALUE))
+            .addComponent(parentContent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         traversalsDialog.setResizable(false);
         traversalsDialog.setSize(new java.awt.Dimension(400, 300));
+
+        mainContent.setBackground(new java.awt.Color(21, 61, 121));
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("Choose an initial tower");
 
         initialTowerComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -143,90 +175,124 @@ public class AnimationWindow extends javax.swing.JFrame {
             }
         });
 
-        BFSbtn.setText("BFS");
+        BFSbtn.setBackground(new java.awt.Color(255, 255, 255));
+        BFSbtn.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        BFSbtn.setText("BFS Traversal");
         BFSbtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BFSbtnActionPerformed(evt);
             }
         });
 
-        DFSbtn.setText("DFS");
+        DFSbtn.setFont(new java.awt.Font("Tahoma", 1, 16)); // NOI18N
+        DFSbtn.setText("DFS Traversal");
         DFSbtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 DFSbtnActionPerformed(evt);
             }
         });
 
-        jLabel5.setText("Choose an initial tower");
+        javax.swing.GroupLayout mainContentLayout = new javax.swing.GroupLayout(mainContent);
+        mainContent.setLayout(mainContentLayout);
+        mainContentLayout.setHorizontalGroup(
+            mainContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(mainContentLayout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addComponent(DFSbtn)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
+                .addComponent(BFSbtn)
+                .addGap(38, 38, 38))
+            .addGroup(mainContentLayout.createSequentialGroup()
+                .addGap(167, 167, 167)
+                .addComponent(initialTowerComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainContentLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(104, 104, 104))
+        );
+        mainContentLayout.setVerticalGroup(
+            mainContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(mainContentLayout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(41, 41, 41)
+                .addComponent(initialTowerComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(71, 71, 71)
+                .addGroup(mainContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(BFSbtn)
+                    .addComponent(DFSbtn))
+                .addContainerGap(78, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout traversalsDialogLayout = new javax.swing.GroupLayout(traversalsDialog.getContentPane());
         traversalsDialog.getContentPane().setLayout(traversalsDialogLayout);
         traversalsDialogLayout.setHorizontalGroup(
             traversalsDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(traversalsDialogLayout.createSequentialGroup()
-                .addGroup(traversalsDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(traversalsDialogLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(traversalsDialogLayout.createSequentialGroup()
-                        .addGap(46, 46, 46)
-                        .addComponent(initialTowerComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(138, 138, 138)
-                        .addGroup(traversalsDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(DFSbtn)
-                            .addComponent(BFSbtn))))
-                .addContainerGap(137, Short.MAX_VALUE))
+            .addComponent(mainContent, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         traversalsDialogLayout.setVerticalGroup(
             traversalsDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(traversalsDialogLayout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(traversalsDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(initialTowerComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BFSbtn))
-                .addGap(26, 26, 26)
-                .addComponent(DFSbtn)
-                .addContainerGap(178, Short.MAX_VALUE))
+            .addComponent(mainContent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         mstDialog.setResizable(false);
         mstDialog.setSize(new java.awt.Dimension(400, 300));
 
-        showmstbtn.setText("MST");
+        jPanel2.setBackground(new java.awt.Color(21, 61, 121));
+
+        showmstbtn.setBackground(new java.awt.Color(255, 255, 255));
+        showmstbtn.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        showmstbtn.setText("Minimum Spanning Tree");
         showmstbtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 showmstbtnActionPerformed(evt);
             }
         });
 
-        jLabel6.setText("Initial");
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("Inital Vertex");
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(72, 72, 72)
+                        .addComponent(showmstbtn))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(126, 126, 126)
+                        .addComponent(jLabel6)))
+                .addContainerGap(77, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(originmstComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(159, 159, 159))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addComponent(jLabel6)
+                .addGap(50, 50, 50)
+                .addComponent(originmstComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 92, Short.MAX_VALUE)
+                .addComponent(showmstbtn)
+                .addGap(64, 64, 64))
+        );
 
         javax.swing.GroupLayout mstDialogLayout = new javax.swing.GroupLayout(mstDialog.getContentPane());
         mstDialog.getContentPane().setLayout(mstDialogLayout);
         mstDialogLayout.setHorizontalGroup(
             mstDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(mstDialogLayout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addGroup(mstDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6)
-                    .addGroup(mstDialogLayout.createSequentialGroup()
-                        .addComponent(originmstComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(111, 111, 111)
-                        .addComponent(showmstbtn)))
-                .addContainerGap(175, Short.MAX_VALUE))
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         mstDialogLayout.setVerticalGroup(
             mstDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(mstDialogLayout.createSequentialGroup()
-                .addGap(35, 35, 35)
-                .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(mstDialogLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(originmstComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(showmstbtn))
-                .addContainerGap(217, Short.MAX_VALUE))
+            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -297,7 +363,7 @@ public class AnimationWindow extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 36, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(41, 41, 41)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -305,9 +371,10 @@ public class AnimationWindow extends javax.swing.JFrame {
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(addEdge, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(titleShowDetails)
-                        .addComponent(traversalsbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(traversalsbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(39, 39, 39)
+                        .addComponent(titleShowDetails)))
                 .addContainerGap(55, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -389,17 +456,17 @@ public class AnimationWindow extends javax.swing.JFrame {
                                         city.addTower(new Tower(evt.getX() - 15, evt.getY() - 30, name));
                                         this.animation.setMst(false);
                                     } else {
-                                        JOptionPane.showMessageDialog(null, "Ya existe esa torre");
+                                        JOptionPane.showMessageDialog(parentContent, "Ya existe esa torre", "Error ", 0);
                                     }
                                 }
                             } else {
-                                JOptionPane.showMessageDialog(null, "Debe digitar correctamente el número de la torre");
+                                JOptionPane.showMessageDialog(parentContent, "Debe digitar correctamente el número de la torre", "Error ", 0);
                             }
                         } else {
-                            JOptionPane.showMessageDialog(null, "No se agregó la torre");
+                            JOptionPane.showMessageDialog(parentContent, "No se agregó la torre", "Error ", 0);
                         }
                     } else {
-                        JOptionPane.showMessageDialog(null, "Espacio incorrecto");
+                        JOptionPane.showMessageDialog(parentContent, "Espacio incorrecto", "Error ", 0);
                     }
                 } else { //cuando ya no se admitan mas torres
 
@@ -411,7 +478,7 @@ public class AnimationWindow extends javax.swing.JFrame {
                 city.deleteTower(t);
                 this.animation.setMst(false);
             } else {
-                JOptionPane.showMessageDialog(null, "Seleccione una torre a eliminar");
+                JOptionPane.showMessageDialog(parentContent, "Seleccione una torre a eliminar", "Error ", 2);
             }
         }
     }//GEN-LAST:event_formMouseClicked
@@ -437,13 +504,15 @@ public class AnimationWindow extends javax.swing.JFrame {
             }
             addEdgeDialog.setVisible(true);
         } else {
-            JOptionPane.showMessageDialog(null, "Deben haber por lo menos 2 torres");
+            JOptionPane.showMessageDialog(parentContent, "Deben haber por lo menos 2 torres", "Error ", 0);
         }
     }//GEN-LAST:event_addEdgeActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        resultado = "";
         city.writeEverything();
+        showDetails.append("\nInformation: ");
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void mstbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mstbtnActionPerformed
@@ -468,7 +537,7 @@ public class AnimationWindow extends javax.swing.JFrame {
                 }
                 traversalsDialog.setVisible(true);
             } else {
-                JOptionPane.showMessageDialog(null, "Deben haber torres");
+                JOptionPane.showMessageDialog(parentContent, "Deben haber torres", "Error ", 0);
             }
         } else {
             if (JOptionPane.showConfirmDialog(null, "Se dibjujará el grafo original",
@@ -483,7 +552,7 @@ public class AnimationWindow extends javax.swing.JFrame {
                     this.animation.setMst(false);
                     traversalsDialog.setVisible(true);
                 } else {
-                    JOptionPane.showMessageDialog(null, "Deben haber torres");
+                    JOptionPane.showMessageDialog(parentContent, "Deben haber torres", "Error ", 0);
                 }
             }
         }
@@ -548,13 +617,13 @@ public class AnimationWindow extends javax.swing.JFrame {
                     city.addEdge(new Edge(city.getTower(a), city.getTower(b), peso));
                     weightTxt.setText("");
                 } else {
-                    JOptionPane.showMessageDialog(null, "El peso debe ser mayor a 0");
+                    JOptionPane.showMessageDialog(parentContent, "El peso debe ser mayor a 0", "Error ", 0);
                 }
             } else {
-                JOptionPane.showMessageDialog(null, "Debe digitar el peso de la arista");
+                JOptionPane.showMessageDialog(parentContent, "Debe digitar el peso de la arista", "Error ", 0);
             }
         } else {
-            JOptionPane.showMessageDialog(null, "No se permiten bucles");
+            JOptionPane.showMessageDialog(parentContent, "No se permiten bucles", "Error ", 0);
         }
     }//GEN-LAST:event_addbtnActionPerformed
 
@@ -570,6 +639,10 @@ public class AnimationWindow extends javax.swing.JFrame {
         this.animation.setMst(true);
         mstDialog.setVisible(false);
     }//GEN-LAST:event_showmstbtnActionPerformed
+
+    private void originComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_originComboBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_originComboBoxActionPerformed
 
     /**
      * @param args the command line arguments
@@ -622,11 +695,14 @@ public class AnimationWindow extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPanel mainContent;
     private javax.swing.JDialog mstDialog;
     private javax.swing.JButton mstbtn;
     private javax.swing.JComboBox<String> originComboBox;
     private javax.swing.JComboBox<String> originmstComboBox;
+    private javax.swing.JPanel parentContent;
     private javax.swing.JTextArea showDetails;
     private javax.swing.JButton showmstbtn;
     private javax.swing.JLabel titleShowDetails;

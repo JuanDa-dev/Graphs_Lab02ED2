@@ -1,16 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package lab2_datos2;
 
 import java.util.ArrayList;
 
-/**
- *
- * @author Mateo
- */
 public class Tower {
 
     private int x; //Posicion x
@@ -63,12 +54,11 @@ public class Tower {
             System.out.println(" --> " + edge.getDestination().getName() + " || " + edge.getDistance());
         }
     }
-    
-    
-    public Edge getEdge(int i){
-        
+
+    public Edge getEdge(int i) {
+
         return edges.get(i);
-        
+
     }
 
     public ArrayList<Edge> getEdges() {

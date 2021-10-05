@@ -1,16 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package lab2_datos2;
 
 import java.util.ArrayList;
 
-/**
- *
- * @author Mateo
- */
 public class MST {
 
     int M[][];
@@ -45,7 +36,7 @@ public class MST {
         System.out.println("Edge \tWeight");
         for (int v = 1; v < nVertices; v++) {
             System.out.println(city.getiTower(mst_result[v]) + " - " + city.getiTower(v) + "\t" + M[v][mst_result[v]]);
-            MstEdges.add(new int[]{city.getiTower(mst_result[v]),city.getiTower(v)});
+            MstEdges.add(new int[]{city.getiTower(mst_result[v]), city.getiTower(v)});
         }
     }
 
@@ -92,5 +83,5 @@ public class MST {
     public ArrayList<int[]> getMstEdges() {
         return MstEdges;
     }
-    
+
 }
