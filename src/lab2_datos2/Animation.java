@@ -1,3 +1,4 @@
+
 package lab2_datos2;
 
 import java.awt.Color;

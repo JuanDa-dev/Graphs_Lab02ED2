@@ -49,12 +49,6 @@ public class Tower {
         }
     }
 
-    void writeEdges() {
-        for (Edge edge : edges) {
-            System.out.println(" --> " + edge.getDestination().getName() + " || " + edge.getDistance());
-        }
-    }
-
     public Edge getEdge(int i) {
 
         return edges.get(i);

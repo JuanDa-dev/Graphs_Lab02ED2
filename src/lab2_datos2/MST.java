@@ -33,9 +33,7 @@ public class MST {
 
     // Print MST
     void printMST_Prim(int[] mst_result) {
-        System.out.println("Edge \tWeight");
-        for (int v = 1; v < nVertices; v++) {
-            System.out.println(city.getiTower(mst_result[v]) + " - " + city.getiTower(v) + "\t" + M[v][mst_result[v]]);
+        for (int v = 1; v < nVertices; v++) {            
             MstEdges.add(new int[]{city.getiTower(mst_result[v]), city.getiTower(v)});
         }
     }

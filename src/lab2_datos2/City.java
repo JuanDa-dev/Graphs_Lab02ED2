@@ -68,27 +68,6 @@ public class City {
         }
     }
 
-    void writeEverything() {
-        System.out.println("Towers:");
-        for (Tower tower : towers) {
-            System.out.println(tower.getName());
-            tower.writeEdges();
-            System.out.println("__________");
-        }
-        System.out.println("Edges: ");
-        for (Edge edge : edges) {
-            System.out.println(edge.getOrigin().getName() + "--" + edge.getDestination().getName() + "||" + edge.getDistance());
-        }
-        System.out.println("Matriz de adyacencia");
-        adjacencyMatrix = generateAdjacencyMatrix();
-        for (int i = 0; i < adjacencyMatrix.length; i++) {
-            for (int j = 0; j < adjacencyMatrix.length; j++) {
-                System.out.print(adjacencyMatrix[i][j] + " ");
-            }
-            System.out.println("");
-        }
-    }
-
     public int[][] generateAdjacencyMatrix() {
         int M[][] = new int[towers.size()][towers.size()];
         for (int i = 0; i < towers.size(); i++) {
@@ -120,15 +99,6 @@ public class City {
         return -1;
     }
 
-    public static void escribirMatriz(int matrix[][], int n) {
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                System.out.print(matrix[i][j] + "|");
-            }
-            System.out.println("");
-        }
-    }
-
     // Prim Algorythm 
     int getiTower(int i) {
         return towers.get(i).getName();
@@ -143,5 +113,15 @@ public class City {
             i++;
         }
         return -1;
+    }
+
+    boolean checkEdge(int a, int b) {
+        for (Edge edge : edges) {
+
+            if ((a == edge.getOrigin().getName() && b == edge.getDestination().getName()) || (a == edge.getDestination().getName() && b == edge.getOrigin().getName())) {
+                return false;
+            }
+        }
+        return true;
     }
 }
